@@ -17,73 +17,68 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-build-node-webkit-app');
 ```
 
-## The "build_node_webkit_app" task
+## The tasks
 
 ### Overview
-In your project's Gruntfile, add a section named `build_node_webkit_app` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `build_node_webkit` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  build_node_webkit_app: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+  build_node_webkit: {
+    targetDir: "dist",
+    nwVersion: "0.9.2",
+    distFiles: ['./node_modules/**', "package.json", 'index.html'],
+    name: "my-awesome-app"
   },
 });
 ```
 
 ### Options
 
-#### options.separator
+#### targetDir
 Type: `String`
-Default value: `',  '`
+Default value: `'dist'`
 
-A string value that is used to do something with whatever.
+The directory where the final files will be written.
 
-#### options.punctuation
+#### nwVersion
 Type: `String`
-Default value: `'.'`
+Default value: `'0.9.2'`
 
-A string value that is used to do something else with whatever else.
+The version of Node Webkit that will be used.
+
+#### distFiles
+Type: `Files`
+Default value: []
+
+The files that will be included in the build.
+
+#### name
+Type: `String`
+Default value: `''`
+
+The name of the resulting app.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### Building for all platforms
 
 ```js
-grunt.initConfig({
-  build_node_webkit_app: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+  grunt.registerTask('dist', ['bundle-node-webkit-app-mac', 'bundle-node-webkit-app-win',
+  'bundle-node-webkit-app-linux32', 'bundle-node-webkit-app-linux64']);
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Building only for Windows
 
 ```js
-grunt.initConfig({
-  build_node_webkit_app: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
+  grunt.registerTask('dist', ['bundle-node-webkit-app-win']);
 ```
+
+and so forth...
+
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+In lieu of a formal styleguide, take care to maintain the existing coding style. Lint your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 _(Nothing yet)_

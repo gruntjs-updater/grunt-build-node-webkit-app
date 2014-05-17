@@ -131,6 +131,7 @@ module.exports = function(grunt) {
     var appName = grunt.config([name, "name"]);
 
     var targetPath = targetFolder + '/' + appName + "-" + os + "-" + arch;
+    grunt.file.delete(targetPath); // Delete all da filez.
     var filename = getLocalNodeWebkitDownloadPath(targetFolder, os, arch, format, nodeWebkitVersion);
 
     if(format === "zip") {

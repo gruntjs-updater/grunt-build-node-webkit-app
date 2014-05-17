@@ -120,8 +120,6 @@ module.exports = function(grunt) {
   grunt.registerTask('download-node-webkit-linux64', ['download-node-webkit:linux:x64']);
 
   grunt.registerTask('bundle-node-webkit-app', function(os, arch) {
-    this.requires(["download-node-webkit"]);
-
     var done = this.async();
 
     var distFiles = grunt.config([name, "distFiles"]);

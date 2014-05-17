@@ -128,7 +128,8 @@ module.exports = function(grunt) {
 
     var targetFolder = grunt.config([name, 'targetDir']) || 'dist/';
 
-    var appName = grunt.config([name, "name"]);
+    var appName = grunt.config([name, "name"]) || "app";
+    var osxName = grunt.config([name, "osxName"]) || "app";
 
     var targetPath = targetFolder + '/' + appName + "-" + os + "-" + arch;
     grunt.file.delete(targetPath); // Delete all da filez.
@@ -150,7 +151,7 @@ module.exports = function(grunt) {
               grunt.file.copy(file, targetPath + "/node-webkit.app/Contents/Resources/app.nw/" + file);
             }
           });
-          fs.renameSync(targetPath + "/node-webkit.app/", targetPath + "/Rockband Keyboard.app");
+          fs.renameSync(targetPath + "/node-webkit.app/", targetPath + "/" + osxName + ".app");
 
           wrench.chmodSyncRecursive(targetPath, '0755');
         } else if(os === "win") {

@@ -28,7 +28,8 @@ grunt.initConfig({
     targetDir: "dist",
     nwVersion: "0.9.2",
     distFiles: ['./node_modules/**', "package.json", 'index.html'],
-    name: "my-awesome-app"
+    name: "my-awesome-app",
+    osxName: "My Awesome App"
   },
 });
 ```
@@ -58,6 +59,12 @@ Type: `String`
 Default value: `''`
 
 The name of the resulting app.
+
+#### osxName
+Type: `String`
+Default value: `''`
+
+The name for OS X of the resulting app.
 
 ### Usage Examples
 

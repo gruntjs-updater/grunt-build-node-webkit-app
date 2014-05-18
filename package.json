@@ -1,7 +1,7 @@
 {
   "name": "grunt-build-node-webkit-app",
   "description": "Another task for creation of Node-Webkit apps, uncompressed.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/jhbruhn/grunt-build-node-webkit-app",
   "author": {
     "name": "Jan-Henrik Bruhn",

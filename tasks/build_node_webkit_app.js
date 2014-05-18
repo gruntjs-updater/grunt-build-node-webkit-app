@@ -133,6 +133,8 @@ module.exports = function(grunt) {
     var appVersion = grunt.config.process(grunt.config([name, "version"])) || "1";
     var copyright = grunt.config([name, "copyright"]);
     var osxName = grunt.config([name, "osxName"]) || "app";
+    var osxIcon = grunt.config([name, "icns"]) || false;
+    var osxCredits = grunt.config([name, "credits"]) || false;
 
     var targetPath = targetFolder + '/' + appName + "-" + os + "-" + arch;
     grunt.file.delete(targetPath); // Delete all da filez.
@@ -170,6 +172,14 @@ module.exports = function(grunt) {
           }
 
           grunt.file.write(targetPath + "/node-webkit.app/Contents/Info.plist", plist.build(appPlist));
+
+          if(osxIcon) {
+            grunt.file.copy(osxIcon, targetPath + "/node-webkit.app/Contents/Resources/nw.icns");
+          }
+
+          if(osxCredits) {
+            grunt.file.copy(osxCredits, targetPath + "/node-webkit.app/Contents/Resources/Credits.html");
+          }
 
           fs.renameSync(targetPath + "/node-webkit.app/", targetPath + "/" + osxName + ".app");
 

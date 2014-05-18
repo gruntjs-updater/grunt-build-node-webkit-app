@@ -31,7 +31,9 @@ grunt.initConfig({
     name: "my-awesome-app",
     osxName: "My Awesome App",
     version: "0.0.1",
-    copyright: "HeinzHelmut Ltd."
+    copyright: "HeinzHelmut Ltd.",
+    icns: "./icon.icns",
+    credits: "./credits.html"
   },
 });
 ```
@@ -79,6 +81,18 @@ Type: `String`
 Default value: `''`
 
 A String describing copyright stuff.
+
+#### icns
+Type: `String`
+Default value: `''`
+
+An icon file (icns format) for OS X.
+
+#### credits
+Type: `String`
+Default value: `''`
+
+A credits file (as html) for OS X.
 
 ### Usage Examples
 

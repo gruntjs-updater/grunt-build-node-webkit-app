@@ -29,7 +29,9 @@ grunt.initConfig({
     nwVersion: "0.9.2",
     distFiles: ['./node_modules/**', "package.json", 'index.html'],
     name: "my-awesome-app",
-    osxName: "My Awesome App"
+    osxName: "My Awesome App",
+    version: "0.0.1",
+    copyright: "HeinzHelmut Ltd."
   },
 });
 ```
@@ -65,6 +67,18 @@ Type: `String`
 Default value: `''`
 
 The name for OS X of the resulting app.
+
+#### version
+Type: `String`
+Default value: `'1'`
+
+The version of the resulting app.
+
+#### copyright
+Type: `String`
+Default value: `''`
+
+A String describing copyright stuff.
 
 ### Usage Examples
 

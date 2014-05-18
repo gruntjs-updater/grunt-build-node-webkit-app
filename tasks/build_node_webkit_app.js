@@ -16,7 +16,8 @@ var wrench        = require('wrench'),
     DecompressZip = require('decompress-zip'),
     tar           = require('tar-fs'),
     zlib          = require('zlib'),
-    archiver      = require('archiver');
+    archiver      = require('archiver'),
+    plist         = require('plist');
 
 var name = "build_node_webkit";
 
@@ -129,6 +130,8 @@ module.exports = function(grunt) {
     var targetFolder = grunt.config([name, 'targetDir']) || 'dist/';
 
     var appName = grunt.config([name, "name"]) || "app";
+    var appVersion = grunt.config.process(grunt.config([name, "version"])) || "1";
+    var copyright = grunt.config([name, "copyright"]);
     var osxName = grunt.config([name, "osxName"]) || "app";
 
     var targetPath = targetFolder + '/' + appName + "-" + os + "-" + arch;
@@ -151,6 +154,23 @@ module.exports = function(grunt) {
               grunt.file.copy(file, targetPath + "/node-webkit.app/Contents/Resources/app.nw/" + file);
             }
           });
+
+          var appPlist = plist.parseFileSync(targetPath + "/node-webkit.app/Contents/Info.plist");
+          appPlist.CFBundleDisplayName = osxName;
+          appPlist.CFBundleName = osxName;
+
+          appPlist.CFBundleDocumentTypes = [];
+          appPlist.UTExportedTypeDeclarations = [];
+
+          appPlist.CFBundleVersion = appVersion;
+          appPlist.CFBundleShortVersionString = 'Version ' + appVersion;
+
+          if(copyright) {
+            appPlist.NSHumanReadableCopyright = copyright;
+          }
+
+          grunt.file.write(targetPath + "/node-webkit.app/Contents/Info.plist", plist.build(appPlist));
+
           fs.renameSync(targetPath + "/node-webkit.app/", targetPath + "/" + osxName + ".app");
 
           wrench.chmodSyncRecursive(targetPath, '0755');

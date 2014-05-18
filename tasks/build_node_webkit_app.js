@@ -59,7 +59,7 @@ var downloadFile = function(targetFile, remoteUrl, done) {
   req.end();
 };
 
-var zipFolder = function(folder, cwd, targetFile, cb) {
+var zipFolder = function(folder, targetFile, cb) {
   var output = fs.createWriteStream(targetFile);
   var archive = archiver('zip');
 
@@ -75,7 +75,7 @@ var zipFolder = function(folder, cwd, targetFile, cb) {
   archive.bulk([
       {
         src: ["**/*", "!nwsnapshot*", "!credits.html"],
-        cwd: __dirname + "/" + folder,
+        cwd: process.cwd() + "/" + folder,
         expand: true
       }
     ]);
@@ -193,7 +193,7 @@ module.exports = function(grunt) {
             }
           });
         }
-        zipFolder(targetPath, targetFolder + "/", targetFolder + "/"  + appName + "-" + os + "-" + arch + ".zip", done);
+        zipFolder(targetPath, targetFolder + "/"  + appName + "-" + os + "-" + arch + ".zip", done);
 
       });
 
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
             }
           });
           wrench.chmodSyncRecursive(targetPath, '0755');
-          zipFolder(targetPath, targetFolder + "dist/", targetFolder + "/" + appName + "-" + os + "-" + arch + ".zip", done);
+          zipFolder(targetPath, targetFolder + "/" + appName + "-" + os + "-" + arch + ".zip", done);
         });
     }
   });
